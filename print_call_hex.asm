@@ -26,11 +26,11 @@ print_hex:
         sub rcx, 4
         sar rax, cl
         
-        and rax, 0xf ; get least significant bits
+        and rax, 0xf ; get least four significant bits
 
-        lea rsi, [codes + rax] ; load address of character in rsi
+        lea rsi, [codes + rax] ; load address of current character in rsi
 
-        mov rax, 1
+        mov rax, 1 ; syscall number
 
         push rcx ; rcx is a special register for syscall
 
