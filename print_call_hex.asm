@@ -21,29 +21,42 @@ print_hex:
     mov rcx, 64 ; amount of bytes
 
     .iterate:
+        ; save rax for restoring later
         push rax
         
+        ; get next 4 bits
         sub rcx, 4
+        
+        ; right-arithmetic shift by cl bytes (lowest byte of rcx)
+        ; remove lowest cl bytes (60-4, 60-4-4 and so on.)
         sar rax, cl
         
-        and rax, 0xf ; get least four significant bits
+        ; get lowest four significant bits
+        ; the lowest nibble (0-15) is always the index in the table 
+        and rax, 0xf
 
-        lea rsi, [codes + rax] ; load address of current character in rsi
+        ; load address of current character in rsi
+        lea rsi, [codes + rax]
 
-        mov rax, 1 ; syscall number
+        ; write syscall identifier
+        mov rax, 1
 
-        push rcx ; rcx is a special register for syscall
+        ; rcx is a special register for syscall
+        ; syscall instruction change this register
+        push rcx
 
         ; rax = 1 (31) - identifier of write
         ; rdi = file descriptor
         ; rsi = address of character
         syscall
 
-        pop rcx ; restore rcx
+        ; restore rcx
+        pop rcx
 
+        ; restore rax
         pop rax
 
-        ; check if rcx = 0
+        ; check if rcx == 0
         test rcx, rcx
 
         ; jump if not it is not equal to zero
