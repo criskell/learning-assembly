@@ -27,7 +27,7 @@ print_hex:
         shl rdi, 4 ; remove the highest nibble from rax
         push rdi
 
-        mov rdi, 1 ; length
+        mov rdi, 1 ; fd
         push rcx ; syscall uses this register
         syscall
         pop rcx ; restore
