@@ -18,7 +18,7 @@ print_hex:
     mov rax, rdi
     mov rdi, 1
     mov rdx, 1
-    mov rcx, 64 ; amount of bytes
+    mov rcx, 64 ; amount of bits
 
     .iterate:
         ; save rax for restoring later
