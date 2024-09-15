@@ -45,7 +45,7 @@ print_hex:
         ; syscall instruction change this register
         push rcx
 
-        ; rax = 1 (31) - identifier of write
+        ; rax = identifier of write (1)
         ; rdi = file descriptor
         ; rsi = address of character
         syscall
